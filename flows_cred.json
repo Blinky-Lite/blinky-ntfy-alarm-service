@@ -2,5 +2,8 @@
     "84d80994.260508": {
         "user": "$(MQTTUSERNAME)",
         "password": "$(MQTTPASSWORD)"
+    },
+    "d8f5d9eee7d40e72": {
+        "token": "$(TELEGRAM_BOT)"
     }
 }
