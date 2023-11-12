@@ -1,1 +1,1 @@
-# blinky-shelly-trays
+# blinky-alarm-service
