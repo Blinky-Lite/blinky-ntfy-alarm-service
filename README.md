@@ -1,1 +1,1 @@
-# blinky-alarm-service
+# blinky-ntfy-alarm-service
