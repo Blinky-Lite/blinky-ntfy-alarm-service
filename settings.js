@@ -335,10 +335,10 @@ module.exports = {
         tours: false,
 
         page: {
-            title: "blinky-alarm-service"
+            title: "blinky-ntfy-alarm-service"
         },
         header: {
-            title: "blinky-alarm-service"
+            title: "blinky-ntfy-alarm-service"
         },
 
         palette: {

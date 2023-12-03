@@ -3,7 +3,8 @@
         "user": "$(MQTTUSERNAME)",
         "password": "$(MQTTPASSWORD)"
     },
-    "d8f5d9eee7d40e72": {
-        "token": "$(TELEGRAM_BOT)"
+    "82c50073c6c82ff2": {
+        "user": "$(NTFYUSERNAME)",
+        "password": "$(NTFYPASSWORD)"
     }
 }

@@ -130,31 +130,6 @@
         "sessionExpiry": ""
     },
     {
-        "id": "d8f5d9eee7d40e72",
-        "type": "telegram bot",
-        "botname": "Telegram Bot",
-        "usernames": "",
-        "chatids": "",
-        "baseapiurl": "",
-        "updatemode": "polling",
-        "pollinterval": "300",
-        "usesocks": false,
-        "sockshost": "",
-        "socksprotocol": "socks5",
-        "socksport": "6667",
-        "socksusername": "anonymous",
-        "sockspassword": "",
-        "bothost": "",
-        "botpath": "",
-        "localbotport": "8443",
-        "publicbotport": "8443",
-        "privatekey": "",
-        "certificate": "",
-        "useselfsignedcertificate": false,
-        "sslterminated": false,
-        "verboselogging": false
-    },
-    {
         "id": "bc4af7f9b27ad1ad",
         "type": "inject",
         "z": "5fc82127739a9c94",
@@ -234,8 +209,7 @@
         "y": 80,
         "wires": [
             [
-                "6e6da391e4ef61d0",
-                "94257ee9b39e06b3"
+                "7303a0d0a1aa3b0b"
             ]
         ]
     },
@@ -252,22 +226,112 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 880,
-        "y": 80,
+        "x": 1460,
+        "y": 220,
         "wires": []
     },
     {
-        "id": "94257ee9b39e06b3",
-        "type": "telegram sender",
+        "id": "82c50073c6c82ff2",
+        "type": "http request",
         "z": "5fc82127739a9c94",
         "name": "",
-        "bot": "d8f5d9eee7d40e72",
-        "haserroroutput": false,
-        "outputs": 1,
-        "x": 890,
-        "y": 140,
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": false,
+        "headers": [],
+        "x": 1290,
+        "y": 220,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "7303a0d0a1aa3b0b",
+        "type": "function",
+        "z": "5fc82127739a9c94",
+        "name": "Send to all topic",
+        "func": "let msgs = [];\nlet topicSplit = msg.payload.topic.split(\"/\");\nlet url = \"http://\" + env.get(\"NTFYIP\") + \"/all\"\nlet rateLimit = 200;\nmsgs.push({topic:\"all\",url:url, payload:msg.payload.content,rate:rateLimit});\nurl = \"http://\" + env.get(\"NTFYIP\") + \"/\" + topicSplit[0];\nmsgs.push({topic:\"traytype\",url:url, payload:msg.payload.content,rate:rateLimit});\nurl = \"http://\" + env.get(\"NTFYIP\") + \"/\" + topicSplit[0] + \"-\" + topicSplit[1];\nmsgs.push({topic:\"traytype\",url:url, payload:msg.payload.content,rate:rateLimit});\nurl = \"http://\" + env.get(\"NTFYIP\") + \"/\" + topicSplit[0] + \"-\" + topicSplit[1] + \"-\" + topicSplit[2];\nmsgs.push({topic:\"traytype\",url:url, payload:msg.payload.content,rate:rateLimit});\nreturn {topic:\"ntfy\",payload:msgs};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 220,
+        "wires": [
+            [
+                "359453b09345d1e0"
+            ]
+        ]
+    },
+    {
+        "id": "359453b09345d1e0",
+        "type": "split",
+        "z": "5fc82127739a9c94",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 850,
+        "y": 220,
+        "wires": [
+            [
+                "b5a389edf4606447"
+            ]
+        ]
+    },
+    {
+        "id": "b5a389edf4606447",
+        "type": "function",
+        "z": "5fc82127739a9c94",
+        "name": "promote",
+        "func": "return msg.payload;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 220,
+        "wires": [
+            [
+                "58e7330582ef318a"
+            ]
+        ]
+    },
+    {
+        "id": "58e7330582ef318a",
+        "type": "delay",
+        "z": "5fc82127739a9c94",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": true,
+        "outputs": 1,
+        "x": 1130,
+        "y": 220,
+        "wires": [
+            [
+                "82c50073c6c82ff2"
+            ]
         ]
     }
 ]
